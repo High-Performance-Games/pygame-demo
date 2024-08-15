@@ -24,21 +24,20 @@ image = pygame.transform.rotate(image, 180)
 DEFAULT_IMAGE_POSITION = (200, 200)
 
 # Prepare loop condition
-running = False
+running = True
+angle = 0
 
 # Event loop
-while not running:
-
-    # Close window event
+while running:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
-            running = True
+            running = False
 
-    # Background Color
     screen.fill((0, 0, 0))
-
-    # Show the image
-    screen.blit(image, DEFAULT_IMAGE_POSITION)
+    rota_image = pygame.transform.rotate(image, angle)
+    screen.blit(rota_image, (0, 0))
+    pygame.display.update()
+    angle += 1
 
     # Part of event loop
     pygame.display.flip()
