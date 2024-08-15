@@ -43,3 +43,4 @@ while not running:
     # Part of event loop
     pygame.display.flip()
     clock.tick(30)
+    # Maxi was here
