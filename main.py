@@ -1,8 +1,15 @@
 # Import pygame
 import pygame
 class Sprite:
-    def __init__(self, filename):
+    def __init__(self, filename, position, angle):
+        self.angle = angle
         self.image = pygame.image.load(filename)
+        self.imageRotated = pygame.transform.rotate(self.image, angle)
+        self.position = position
+    def draw(self):
+        self.imageRotated = pygame.transform.rotate(self.image, self.angle)
+        screen.blit(self.imageRotated, self.position)
+
 # Initialise pygame
 pygame.init()
 
@@ -14,15 +21,14 @@ screen = pygame.display.set_mode(size)
 clock = pygame.time.Clock()
 
 # Load image
-# image = pygame.image.load('gfg.png')
-boid = pygame.image.load('arrow.png')
-# boid2 = sprite('arrow.png')
+
+boid1 = Sprite('gfg.png', (0,0), 180)
+boid2 = Sprite('arrow.png', (300,300), 180)
 # Set the size for the image
 DEFAULT_IMAGE_SIZE = (20, 20)
 
 # Rotate the image by any degree
-# image = pygame.transform.rotate(image, 180)
-boid = pygame.transform.rotate(boid, 180)
+
 
 # Set a default position
 DEFAULT_IMAGE_POSITION = (20, 20)
@@ -39,15 +45,14 @@ while running:
 
     if is_key_pressed[pygame.K_RIGHT]:
         print('right')
-        angle += 1
+        boid2.angle += 1
     elif is_key_pressed[pygame.K_LEFT]:
         print('left')
-        angle -= 1
+        boid2.angle -= 1
     screen.fill((128, 128, 128))
-    # rota_image = pygame.transform.rotate(image, angle)
-    rota_boid = pygame.transform.rotate(boid, angle)
-    # screen.blit(rota_image, (0, 0))
-    screen.blit(rota_boid, (0, 0))
+
+    boid1.draw()
+    boid2.draw()
     pygame.display.update()
 
     # Part of event loop
