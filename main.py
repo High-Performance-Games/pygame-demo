@@ -11,7 +11,7 @@ class Sprite:
         self.angle = angle
         self.image = pygame.image.load(filename)
         self.imageRotated = pygame.transform.rotate(self.image, angle)
-        self.position = position
+        self.position = Position(position[0],position[1])
     def draw(self):
         self.imageRotated = pygame.transform.rotate(self.image, self.angle)
         screen.blit(self.imageRotated, self.position)
@@ -56,7 +56,7 @@ while running:
         print('left')
         boid2.angle -= 1
     screen.fill((128, 128, 128))
-
+    boid1.position = Position(boid1.position.x + 1, boid1.position.y + 1)
     boid1.draw()
     boid2.draw()
     pygame.display.update()
