@@ -1,5 +1,11 @@
 # Import pygame
 import pygame
+from typing import NamedTuple
+
+
+class Position(NamedTuple):
+    x: int
+    y: int
 class Sprite:
     def __init__(self, filename, position, angle):
         self.angle = angle
