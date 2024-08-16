@@ -1,5 +1,6 @@
 # Import pygame
 import pygame
+import time
 from typing import NamedTuple
 
 
@@ -47,8 +48,8 @@ class Player(Sprite):
             self.velocity = Position(0, -10)
         elif is_key_pressed[pygame.K_DOWN]:
             self.velocity = Position(0, 10)
-        else:
-            self.velocity = Position(0,0)
+        # else:
+        #     self.velocity = Position(0,0)
         super().update()
 
 
@@ -64,7 +65,7 @@ clock = pygame.time.Clock()
 
 # Load image
 
-boid1 = Player('gfg.png', (0, 0), 180)
+boid1 = Player('gfg.png', (300, 300), 180)
 boid2 = Sprite('arrow.png', (300, 300), 180)
 boid2.velocity = Position(-1,-1)
 # Set the size for the image
