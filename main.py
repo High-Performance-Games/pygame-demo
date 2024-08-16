@@ -1,6 +1,8 @@
 # Import pygame
 import pygame
-
+class Sprite:
+    def __init__(self, filename):
+        self.image = pygame.image.load(filename)
 # Initialise pygame
 pygame.init()
 
@@ -14,6 +16,7 @@ clock = pygame.time.Clock()
 # Load image
 # image = pygame.image.load('gfg.png')
 boid = pygame.image.load('arrow.png')
+# boid2 = sprite('arrow.png')
 # Set the size for the image
 DEFAULT_IMAGE_SIZE = (20, 20)
 
