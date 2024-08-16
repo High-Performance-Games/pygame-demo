@@ -43,6 +43,10 @@ class Player(Sprite):
             self.velocity = Position(10,0)
         elif is_key_pressed[pygame.K_LEFT]:
             self.velocity = Position(-10,0)
+        elif is_key_pressed[pygame.K_UP]:
+            self.velocity = Position(0, -10)
+        elif is_key_pressed[pygame.K_DOWN]:
+            self.velocity = Position(0, 10)
         else:
             self.velocity = Position(0,0)
         super().update()
