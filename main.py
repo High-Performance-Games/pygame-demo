@@ -55,6 +55,7 @@ class Player(Sprite):
             self.setRotation(180)
         # else:
         #     self.velocity = Position(0,0)
+
         super().update()
 class BoidEnemy(Sprite):
     def __init__(self, filename, position, size, angle):
@@ -64,7 +65,7 @@ class BoidEnemy(Sprite):
     def update(self):
         self.setRotation(self.angle + math.sin(self.rotationSpeed))
         self.rotationSpeed += 0.01
-        self.velocity = Position(math.cos(math.pi * self.angle / 180), -math.sin(math.pi * self.angle / 180))
+        # self.velocity = Position(math.cos(math.pi * self.angle / 180), -math.sin(math.pi * self.angle / 180))
         super().update()
 
 # Initialise pygame
@@ -84,7 +85,6 @@ clock = pygame.time.Clock()
 
 playerShip = Player('playership.png', (300, 300), (50,50),0)
 boidEnemy = BoidEnemy('arrow.png', (300, 300),(50,50), 180)
-boidEnemy.velocity = Position(0,0)
 
 # Prepare loop condition
 running = True
@@ -97,6 +97,9 @@ while running:
 
     screen.fill((128, 128, 128))
     playerShip.update()
+    boidEnemy.velocity = Position((playerShip.position.x - boidEnemy.position.x) * 0.01,
+                                  (playerShip.position.y - boidEnemy.position.y) * 0.01)
+
     boidEnemy.update()
 
     playerShip.draw()
