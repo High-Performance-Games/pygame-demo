@@ -65,8 +65,8 @@ clock = pygame.time.Clock()
 
 # Load image
 
-boid1 = Player('gfg.png', (300, 300), 180)
-boid2 = Sprite('arrow.png', (300, 300), 180)
+playerShip = Player('playership.png', (300, 300), )
+boidEnemy = Sprite('arrow.png', (300, 300), 180)
 boid2.velocity = Position(-1,-1)
 # Set the size for the image
 DEFAULT_IMAGE_SIZE = (20, 20)
