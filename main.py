@@ -2,8 +2,6 @@
 import pygame
 import time
 from typing import NamedTuple
-
-
 class Position(NamedTuple):
     x: int
     y: int
@@ -64,6 +62,9 @@ class BoidEnemy(Sprite):
 
 # Initialise pygame
 pygame.init()
+pygame.mixer.init()
+pygame.mixer.music.load("test.mp3")
+pygame.mixer.music.play()
 
 # Set window size
 size = width, height = 600, 600
