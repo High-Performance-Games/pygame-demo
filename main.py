@@ -68,9 +68,9 @@ clock = pygame.time.Clock()
 
 # Load image
 
-boid1 = Player('playership.png', (300, 300), (50,50),0)
-boid2 = Sprite('arrow.png', (300, 300),(50,50), 180)
-boid2.velocity = Position(-1,-1)
+playerShip = Player('playership.png', (300, 300), (50,50),0)
+boidEnemy = Sprite('arrow.png', (300, 300),(50,50), 180)
+boidEnemy.velocity = Position(-1,-1)
 
 # Prepare loop condition
 running = True
@@ -82,11 +82,11 @@ while running:
             running = False
 
     screen.fill((128, 128, 128))
-    boid1.update()
-    boid2.update()
+    playerShip.update()
+    boidEnemy.update()
 
-    boid1.draw()
-    boid2.draw()
+    playerShip.draw()
+    boidEnemy.draw()
     pygame.display.update()
 
     # Part of event loop
