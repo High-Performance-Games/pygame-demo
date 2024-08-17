@@ -53,8 +53,8 @@ class Player(Sprite):
         elif is_key_pressed[pygame.K_DOWN]:
             self.velocity = Position(0, playerSpeed)
             self.setRotation(180)
-        # else:
-        #     self.velocity = Position(0,0)
+        else:
+            self.velocity = Position(0,0)
 
         super().update()
 class BoidEnemy(Sprite):
@@ -97,8 +97,10 @@ while running:
 
     screen.fill((128, 128, 128))
     playerShip.update()
-    boidEnemy.velocity = Position((playerShip.position.x - boidEnemy.position.x) * 0.01,
-                                  (playerShip.position.y - boidEnemy.position.y) * 0.01)
+    boidEnemy.velocity = Position((playerShip.position.x - boidEnemy.position.x) * 0.01
+                                  + math.cos(math.pi * boidEnemy.angle / 180),
+                                  (playerShip.position.y - boidEnemy.position.y) * 0.01
+                                  - math.sin(math.pi * boidEnemy.angle / 180))
 
     boidEnemy.update()
 
