@@ -57,7 +57,12 @@ class Player(Sprite):
         #     self.velocity = Position(0,0)
         super().update()
 class BoidEnemy(Sprite):
+    def __init__(self, filename, position, size, angle):
+        super().__init__(filename, position, size, angle)
+        self.rotationSpeed = 1
+
     def update(self):
+        self.setRotation(self.angle + self.rotationSpeed)
         super().update()
 
 # Initialise pygame
