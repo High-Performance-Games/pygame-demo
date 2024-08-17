@@ -1,6 +1,6 @@
 # Import pygame
 import pygame
-import time
+import math
 from typing import NamedTuple
 class Position(NamedTuple):
     x: int
@@ -62,7 +62,9 @@ class BoidEnemy(Sprite):
         self.rotationSpeed = 1
 
     def update(self):
-        self.setRotation(self.angle + self.rotationSpeed)
+        self.setRotation(self.angle + math.sin(self.rotationSpeed))
+        self.rotationSpeed += 0.01
+        self.velocity = Position(math.cos(math.pi * self.angle / 180), -math.sin(math.pi * self.angle / 180))
         super().update()
 
 # Initialise pygame
@@ -82,7 +84,7 @@ clock = pygame.time.Clock()
 
 playerShip = Player('playership.png', (300, 300), (50,50),0)
 boidEnemy = BoidEnemy('arrow.png', (300, 300),(50,50), 180)
-boidEnemy.velocity = Position(-1,-1)
+boidEnemy.velocity = Position(0,0)
 
 # Prepare loop condition
 running = True
