@@ -45,16 +45,22 @@ class Player(Sprite):
         is_key_pressed = pygame.key.get_pressed()
         if is_key_pressed[pygame.K_RIGHT]:
             self.velocity = Position(playerSpeed,0)
+            self.setRotation(-90)
         elif is_key_pressed[pygame.K_LEFT]:
             self.velocity = Position(-playerSpeed,0)
+            self.setRotation(90)
         elif is_key_pressed[pygame.K_UP]:
             self.velocity = Position(0, -playerSpeed)
+            self.setRotation(0)
         elif is_key_pressed[pygame.K_DOWN]:
             self.velocity = Position(0, playerSpeed)
+            self.setRotation(180)
         # else:
         #     self.velocity = Position(0,0)
         super().update()
-
+class BoidEnemy(Sprite):
+    def update(self):
+        super().update()
 
 # Initialise pygame
 pygame.init()
@@ -69,7 +75,7 @@ clock = pygame.time.Clock()
 # Load image
 
 playerShip = Player('playership.png', (300, 300), (50,50),0)
-boidEnemy = Sprite('arrow.png', (300, 300),(50,50), 180)
+boidEnemy = BoidEnemy('arrow.png', (300, 300),(50,50), 180)
 boidEnemy.velocity = Position(-1,-1)
 
 # Prepare loop condition
