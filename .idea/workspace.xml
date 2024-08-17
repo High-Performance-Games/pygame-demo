@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7f0cdd1e-dd49-49cd-ac3d-8a21db83c21f" name="Changes" comment="Added Player class and put keyboard controls inside update of the player method.">
+    <list default="true" id="7f0cdd1e-dd49-49cd-ac3d-8a21db83c21f" name="Changes" comment="Added Sprite size.">
       <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -56,7 +56,7 @@
     "Python.main.executor": "Run",
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "main"
+    "git-widget-placeholder": "Merging main"
   }
 }]]></component>
   <component name="RunManager">
@@ -142,7 +142,15 @@
       <option name="project" value="LOCAL" />
       <updated>1723854473696</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="Added Sprite size.">
+      <option name="closed" value="true" />
+      <created>1723855329612</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1723855329612</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -160,7 +168,8 @@
     <MESSAGE value="Added message" />
     <MESSAGE value="Added Position class." />
     <MESSAGE value="Added Player class and put keyboard controls inside update of the player method." />
-    <option name="LAST_COMMIT_MESSAGE" value="Added Player class and put keyboard controls inside update of the player method." />
+    <MESSAGE value="Added Sprite size." />
+    <option name="LAST_COMMIT_MESSAGE" value="Added Sprite size." />
   </component>
   <component name="XDebuggerManager">
     <watches-manager>
