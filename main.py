@@ -27,19 +27,25 @@ class Sprite:
         self.imageRotated = pygame.transform.rotate(self.imageScaled, angle)
         self.position = Position(position[0], position[1])
         self.velocity = Position(0, 0)
-
+        self.active = False
     def update(self):
+        if not self.active:
+            return
         self.position += self.velocity
     def setRotation(self, angle):
         self.angle = angle
         self.imageRotated = pygame.transform.rotate(self.imageScaled, self.angle)
 
     def draw(self):
+        if not self.active:
+            return
         screen.blit(self.imageRotated, self.position)
 
 playerSpeed = 5
 class Player(Sprite):
     def update(self):
+        if not self.active:
+            return
         is_key_pressed = pygame.key.get_pressed()
         if is_key_pressed[pygame.K_RIGHT]:
             self.velocity = Position(playerSpeed,0)
@@ -58,14 +64,32 @@ class Player(Sprite):
 
         super().update()
 class BoidEnemy(Sprite):
-    def __init__(self, filename, position, size, angle):
+    def __init__(self, filename, position, size, angle, target):
         super().__init__(filename, position, size, angle)
         self.rotationSpeed = 1
+        self.target = target
 
     def update(self):
+        if not self.active:
+            return
         self.setRotation(self.angle + math.sin(self.rotationSpeed))
         self.rotationSpeed += 0.01
         # self.velocity = Position(math.cos(math.pi * self.angle / 180), -math.sin(math.pi * self.angle / 180))
+        self.velocity = Position((self.target.position.x - self.position.x) * 0.01
+                                      + math.cos(math.pi * self.angle / 180),
+                                      (self.target.position.y - self.position.y) * 0.01
+                                      - math.sin(math.pi * self.angle / 180))
+        super().update()
+
+class Projectile(Sprite):
+    def __init__(self, filename, position, size, angle):
+        super().__init__(filename, position, size, angle)
+
+    def update(self):
+        if not self.active:
+            return
+        self.velocity = Position(0,-5)
+
         super().update()
 
 # Initialise pygame
@@ -84,8 +108,12 @@ clock = pygame.time.Clock()
 # Load image
 
 playerShip = Player('playership.png', (300, 300), (50,50),0)
-boidEnemy = BoidEnemy('arrow.png', (300, 300),(50,50), 180)
+boidEnemy = BoidEnemy('arrow.png', (300, 300),(50,50), 180, playerShip)
+projectile = Projectile('arrow.png', (300, 600),(50,50), 180)
 
+playerShip.active = True
+boidEnemy.active = True
+projectile.active = True
 # Prepare loop condition
 running = True
 angle = 0
@@ -95,20 +123,19 @@ while running:
         if event.type == pygame.QUIT:
             running = False
 
-    screen.fill((128, 128, 128))
     playerShip.update()
-    boidEnemy.velocity = Position((playerShip.position.x - boidEnemy.position.x) * 0.01
-                                  + math.cos(math.pi * boidEnemy.angle / 180),
-                                  (playerShip.position.y - boidEnemy.position.y) * 0.01
-                                  - math.sin(math.pi * boidEnemy.angle / 180))
+
 
     boidEnemy.update()
-
-    playerShip.draw()
-    boidEnemy.draw()
+    projectile.update()
     pygame.display.update()
 
+    screen.fill((128, 128, 128))
+    playerShip.draw()
+    boidEnemy.draw()
+    projectile.draw()
+
     # Part of event loop
-    pygame.display.flip()
     clock.tick(60)
+    pygame.display.flip()
     # Maxi was here
