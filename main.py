@@ -82,13 +82,28 @@ class BoidEnemy(Sprite):
         super().update()
 
 class Projectile(Sprite):
-    def __init__(self, filename, position, size, angle):
+    def __init__(self, filename, position, size, angle, target):
         super().__init__(filename, position, size, angle)
-
+        self.rotationSpeed = 1
+        self.target = target
     def update(self):
         if not self.active:
             return
-        self.velocity = Position(0,-5)
+        self.setRotation(self.angle + math.sin(self.rotationSpeed))
+        self.rotationSpeed += 0.01
+        # self.velocity = Position(math.cos(math.pi * self.angle / 180), -math.sin(math.pi * self.angle / 180))
+        self.velocity = Position((self.target.position.x - self.position.x) * 0.01
+                                 + math.cos(math.pi * self.angle / 180),
+                                 (self.target.position.y - self.position.y) * 0.01
+                                 - math.sin(math.pi * self.angle / 180))
+        if self.position.x <= 0:
+            self.active = False
+        elif self.position.y <= 0:
+            self.active = False
+        elif self.position.x >= 600:
+            self.active = False
+        elif self.position.y >= 600:
+            self.active = False
 
         super().update()
 
@@ -109,7 +124,7 @@ clock = pygame.time.Clock()
 
 playerShip = Player('playership.png', (300, 300), (50,50),0)
 boidEnemy = BoidEnemy('arrow.png', (300, 300),(50,50), 180, playerShip)
-projectile = Projectile('arrow.png', (300, 600),(50,50), 180)
+projectile = Projectile('arrow.png', (300, 600),(50,50), 90, playerShip)
 
 playerShip.active = True
 boidEnemy.active = True
@@ -131,6 +146,9 @@ while running:
     pygame.display.update()
 
     screen.fill((128, 128, 128))
+    if not projectile.active:
+        projectile.active = True
+        projectile.position = boidEnemy.position
     playerShip.draw()
     boidEnemy.draw()
     projectile.draw()
