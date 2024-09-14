@@ -72,13 +72,13 @@ class BoidEnemy(Sprite):
     def update(self):
         if not self.active:
             return
-        self.setRotation(self.angle + math.sin(self.rotationSpeed))
+        self.setRotation(self.angle)
         self.rotationSpeed += 0.01
         # self.velocity = Position(math.cos(math.pi * self.angle / 180), -math.sin(math.pi * self.angle / 180))
         self.velocity = Position((self.target.position.x - self.position.x) * 0.01
-                                      + math.cos(math.pi * self.angle / 180),
-                                      (self.target.position.y - self.position.y) * 0.01
-                                      - math.sin(math.pi * self.angle / 180))
+                                    - math.cos(math.pi * self.angle / 180),
+                                    (self.target.position.y - self.position.y) * 0.01
+                                    + math.sin(math.pi * self.angle / 180))
         super().update()
 
 class Projectile(Sprite):
@@ -89,13 +89,13 @@ class Projectile(Sprite):
     def update(self):
         if not self.active:
             return
-        self.setRotation(self.angle + math.sin(self.rotationSpeed))
+        self.setRotation(self.angle)
         self.rotationSpeed += 0.01
         # self.velocity = Position(math.cos(math.pi * self.angle / 180), -math.sin(math.pi * self.angle / 180))
         self.velocity = Position((self.target.position.x - self.position.x) * 0.01
-                                 + math.cos(math.pi * self.angle / 180),
-                                 (self.target.position.y - self.position.y) * 0.01
-                                 - math.sin(math.pi * self.angle / 180))
+                                    + math.cos(math.pi * self.angle / 180),
+                                    (self.target.position.y - self.position.y) * 0.01
+                                    - math.sin(math.pi * self.angle / 180))
         if self.position.x <= 0:
             self.active = False
         elif self.position.y <= 0:
@@ -124,7 +124,7 @@ clock = pygame.time.Clock()
 
 playerShip = Player('playership.png', (300, 300), (50,50),0)
 boidEnemy = BoidEnemy('arrow.png', (300, 300),(50,50), 180, playerShip)
-projectile = Projectile('arrow.png', (300, 600),(50,50), 90, playerShip)
+projectile = Projectile('arrow.png', (300, 600),(25,25), 90, playerShip)
 
 playerShip.active = True
 boidEnemy.active = True
