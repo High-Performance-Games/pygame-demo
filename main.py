@@ -97,12 +97,16 @@ class Projectile(Sprite):
                                     (self.target.position.y - self.position.y) * 0.01
                                     - math.sin(math.pi * self.angle / 180))
         if self.position.x <= 0:
+            pygame.mixer.Sound.play(crash_sound)
             self.active = False
         elif self.position.y <= 0:
+            pygame.mixer.Sound.play(crash_sound)
             self.active = False
         elif self.position.x >= 600:
+            pygame.mixer.Sound.play(crash_sound)
             self.active = False
         elif self.position.y >= 600:
+            pygame.mixer.Sound.play(crash_sound)
             self.active = False
 
         super().update()
@@ -110,8 +114,9 @@ class Projectile(Sprite):
 # Initialise pygame
 pygame.init()
 pygame.mixer.init()
-pygame.mixer.music.load("test.mp3")
-pygame.mixer.music.play()
+# pygame.mixer.music.load("test.mp3")
+crash_sound = pygame.mixer.Sound("317752__jalastram__sfx_explosion_07.wav")
+# pygame.mixer.music.play()
 
 # Set window size
 size = width, height = 600, 600
