@@ -1,44 +1,8 @@
 # Import pygame
 import pygame
 import math
-from typing import NamedTuple
 
-
-class Position(NamedTuple):
-    x: int
-    y: int
-
-    def __add__(self, o):
-        return Position(self.x + o.x, self.y + o.y)
-
-    def __sub__(self, o):
-        return Position(self.x - o.x, self.y - o.y)
-
-    def __mul__(self, o):
-        return Position(self.x * o.x, self.y * o.y)
-
-    def __truediv__(self, o):
-        return Position(self.x / o.x, self.y / o.y)
-
-
-class Vector2(NamedTuple):
-    x: float
-    y: float
-
-    def __add__(self, o):
-        return Vector2(self.x + o.x, self.y + o.y)
-
-    def __sub__(self, o):
-        return Vector2(self.x - o.x, self.y - o.y)
-
-    def __mul__(self, o):
-        return Vector2(self.x * o.x, self.y * o.y)
-
-    def __mul__(self, v: float):
-        return Vector2(self.x * v, self.y * v)
-
-    def __truediv__(self, o):
-        return Vector2(self.x / o.x, self.y / o.y)
+from pygame import Vector2
 
 
 class Sprite:
@@ -54,7 +18,7 @@ class Sprite:
     def update(self, dt: float):
         if not self.active:
             return
-        self.position += self.velocity * dt
+        self.position += self.velocity * dt;
 
     def setRotation(self, newAngle):
         self.angle = newAngle
@@ -66,7 +30,7 @@ class Sprite:
         screen.blit(self.imageRotated, self.position)
 
 
-playerSpeed = 5
+playerSpeed = 15
 
 
 class Player(Sprite):
@@ -123,9 +87,9 @@ class Projectile(Sprite):
         self.setRotation(self.angle)
         self.rotationSpeed += 0.01
         # self.velocity = Vector2(math.cos(math.pi * self.angle / 180), -math.sin(math.pi * self.angle / 180))
-        self.velocity = Vector2((self.target.position.x - self.position.x) * 0.01
+        self.velocity = Vector2((self.target.position.x - self.position.x) * 0.1
                                  + math.cos(math.pi * self.angle / 180),
-                                 (self.target.position.y - self.position.y) * 0.01
+                                 (self.target.position.y - self.position.y) * 0.1
                                  - math.sin(math.pi * self.angle / 180))
         if self.position.x <= 0:
             pygame.mixer.Sound.play(crash_sound)
@@ -161,7 +125,7 @@ clock = pygame.time.Clock()
 
 playerShip = Player('playership.png', (300, 300), (50, 50), 0)
 boidEnemy = BoidEnemy('arrow.png', (300, 300), (50, 50), 180, playerShip)
-projectile = Projectile('arrow.png', (300, 600), (25, 25), 90, playerShip)
+projectile = Projectile('arrow.png', (300, 400), (25, 25), 90, playerShip)
 
 playerShip.active = True
 boidEnemy.active = True
@@ -169,16 +133,20 @@ projectile.active = True
 # Prepare loop condition
 running = True
 angle = 0
+gameClock = pygame.time.Clock()
+DT_SHIFT = 10
 # Event loop
 while running:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
+    frameTime = gameClock.tick(60.0)  # attempts to normalize the time between game loops
+    dt = frameTime / 1000.0  # divide by ~1000
 
-    playerShip.update(.16)
+    playerShip.update(dt)
 
-    boidEnemy.update(.16)
-    projectile.update(.16)
+    boidEnemy.update(dt)
+    projectile.update(dt)
     pygame.display.update()
 
     screen.fill((128, 128, 128))
