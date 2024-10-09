@@ -3,86 +3,72 @@ import pygame
 import math
 from typing import NamedTuple
 
+from pygame import Vector2
+
 from position import Position
-
-
-class Sprite:
-    def __init__(self, filename, position, size, angle):
-        self.angle = angle
-        self.image = pygame.image.load(filename)
-        self.imageScaled = pygame.transform.scale(self.image, size)
-        self.imageRotated = pygame.transform.rotate(self.imageScaled, angle)
-        self.position = Position(position[0], position[1])
-        self.velocity = Position(0, 0)
-        self.active = False
-    def update(self):
-        if not self.active:
-            return
-        self.position += self.velocity
-    def setRotation(self, angle):
-        self.angle = angle
-        self.imageRotated = pygame.transform.rotate(self.imageScaled, self.angle)
-
-    def draw(self):
-        if not self.active:
-            return
-        screen.blit(self.imageRotated, self.position)
+from sprite import Sprite
 
 playerSpeed = 5
+
+
 class Player(Sprite):
-    def update(self):
+    def update(self, dt: float):
         if not self.active:
             return
         is_key_pressed = pygame.key.get_pressed()
         if is_key_pressed[pygame.K_RIGHT]:
-            self.velocity = Position(playerSpeed,0)
+            self.velocity = Vector2(playerSpeed, 0)
             self.setRotation(-90)
         elif is_key_pressed[pygame.K_LEFT]:
-            self.velocity = Position(-playerSpeed,0)
+            self.velocity = Vector2(-playerSpeed, 0)
             self.setRotation(90)
         elif is_key_pressed[pygame.K_UP]:
-            self.velocity = Position(0, -playerSpeed)
+            self.velocity = Vector2(0, -playerSpeed)
             self.setRotation(0)
         elif is_key_pressed[pygame.K_DOWN]:
-            self.velocity = Position(0, playerSpeed)
+            self.velocity = Vector2(0, playerSpeed)
             self.setRotation(180)
         else:
-            self.velocity = Position(0,0)
+            self.velocity = Vector2(0, 0)
 
-        super().update()
+        super().update(dt)
+
+
 class BoidEnemy(Sprite):
     def __init__(self, filename, position, size, angle, target):
         super().__init__(filename, position, size, angle)
         self.rotationSpeed = 1
         self.target = target
 
-    def update(self):
+    def update(self, dt: float):
         if not self.active:
             return
         self.setRotation(self.angle)
         self.rotationSpeed += 0.01
-        # self.velocity = Position(math.cos(math.pi * self.angle / 180), -math.sin(math.pi * self.angle / 180))
-        self.velocity = Position((self.target.position.x - self.position.x) * 0.01
-                                    - math.cos(math.pi * self.angle / 180),
-                                    (self.target.position.y - self.position.y) * 0.01
-                                    + math.sin(math.pi * self.angle / 180))
-        super().update()
+        # self.velocity = Vector2(math.cos(math.pi * self.angle / 180), -math.sin(math.pi * self.angle / 180))
+        self.velocity = Vector2((self.target.position.x - self.position.x) * 0.01
+                                - math.cos(math.pi * self.angle / 180),
+                                (self.target.position.y - self.position.y) * 0.01
+                                + math.sin(math.pi * self.angle / 180))
+        super().update(dt)
+
 
 class Projectile(Sprite):
     def __init__(self, filename, position, size, angle, target):
         super().__init__(filename, position, size, angle)
         self.rotationSpeed = 1
         self.target = target
-    def update(self):
+
+    def update(self, dt: float):
         if not self.active:
             return
         self.setRotation(self.angle)
         self.rotationSpeed += 0.01
-        # self.velocity = Position(math.cos(math.pi * self.angle / 180), -math.sin(math.pi * self.angle / 180))
-        self.velocity = Position((self.target.position.x - self.position.x) * 0.01
-                                    + math.cos(math.pi * self.angle / 180),
-                                    (self.target.position.y - self.position.y) * 0.01
-                                    - math.sin(math.pi * self.angle / 180))
+        # self.velocity = Vector2(math.cos(math.pi * self.angle / 180), -math.sin(math.pi * self.angle / 180))
+        self.velocity = Vector2((self.target.position.x - self.position.x) * 0.01
+                                + math.cos(math.pi * self.angle / 180),
+                                (self.target.position.y - self.position.y) * 0.01
+                                - math.sin(math.pi * self.angle / 180))
         if self.position.x <= 0:
             pygame.mixer.Sound.play(crash_sound)
             self.active = False
@@ -96,7 +82,8 @@ class Projectile(Sprite):
             pygame.mixer.Sound.play(crash_sound)
             self.active = False
 
-        super().update()
+        super().update(dt)
+
 
 # Initialise pygame
 pygame.init()
@@ -114,9 +101,9 @@ clock = pygame.time.Clock()
 
 # Load image
 
-playerShip = Player('playership.png', (300, 300), (50,50),0)
-boidEnemy = BoidEnemy('arrow.png', (300, 300),(50,50), 180, playerShip)
-projectile = Projectile('arrow.png', (300, 600),(25,25), 90, playerShip)
+playerShip = Player('playership.png', (300, 300), (50, 50), 0)
+boidEnemy = BoidEnemy('arrow.png', (300, 300), (50, 50), 180, playerShip)
+projectile = Projectile('arrow.png', (300, 600), (25, 25), 90, playerShip)
 
 playerShip.active = True
 boidEnemy.active = True
@@ -124,26 +111,27 @@ projectile.active = True
 # Prepare loop condition
 running = True
 angle = 0
+gameClock = pygame.time.Clock()
 # Event loop
 while running:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
+    frameTime = gameClock.tick(60.0)  # attempts to normalize the time between game loops
+    dt = frameTime / 1000.0  # divide by ~1000
+    playerShip.update(frameTime)
 
-    playerShip.update()
-
-
-    boidEnemy.update()
-    projectile.update()
+    boidEnemy.update(frameTime)
+    projectile.update(frameTime)
     pygame.display.update()
 
     screen.fill((128, 128, 128))
     if not projectile.active:
         projectile.active = True
         projectile.position = boidEnemy.position
-    playerShip.draw()
-    boidEnemy.draw()
-    projectile.draw()
+    playerShip.draw(screen)
+    boidEnemy.draw(screen)
+    projectile.draw(screen)
 
     # Part of event loop
     clock.tick(60)
