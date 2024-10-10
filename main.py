@@ -6,12 +6,12 @@ from typing import NamedTuple
 from pygame import Vector2
 
 from position import Position
-from sprite import Sprite
+from object import Object
 
-playerSpeed = 5
+playerSpeed = 25
 
 
-class Player(Sprite):
+class Player(Object):
     def update(self, dt: float):
         if not self.active:
             return
@@ -34,7 +34,7 @@ class Player(Sprite):
         super().update(dt)
 
 
-class BoidEnemy(Sprite):
+class BoidEnemy(Object):
     def __init__(self, filename, position, size, angle, target):
         super().__init__(filename, position, size, angle)
         self.rotationSpeed = 1
@@ -53,7 +53,7 @@ class BoidEnemy(Sprite):
         super().update(dt)
 
 
-class Projectile(Sprite):
+class Projectile(Object):
     def __init__(self, filename, position, size, angle, target):
         super().__init__(filename, position, size, angle)
         self.rotationSpeed = 1
@@ -119,10 +119,10 @@ while running:
             running = False
     frameTime = gameClock.tick(60.0)  # attempts to normalize the time between game loops
     dt = frameTime / 1000.0  # divide by ~1000
-    playerShip.update(frameTime)
+    playerShip.update(dt)
 
-    boidEnemy.update(frameTime)
-    projectile.update(frameTime)
+    boidEnemy.update(dt)
+    projectile.update(dt)
     pygame.display.update()
 
     screen.fill((128, 128, 128))

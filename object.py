@@ -2,9 +2,10 @@ import pygame
 from pygame import Vector2
 
 
-class Sprite:
-    def __init__(self, filename, position, size, angle):
-        self.angle = angle
+class Object:
+    def __init__(self, filename, position, size: tuple[float, float], angle: float):
+        self.m: float = 0.0
+        self.angle: float = angle
         self.image = pygame.image.load(filename)
         self.imageScaled = pygame.transform.scale(self.image, size)
         self.imageRotated = pygame.transform.rotate(self.imageScaled, angle)

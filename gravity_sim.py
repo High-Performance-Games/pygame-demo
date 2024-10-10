@@ -4,12 +4,12 @@ import math
 
 from pygame import Vector2
 
-from sprite import Sprite
+from object import Object
 
 playerSpeed = 15
 
 
-class Player(Sprite):
+class Player(Object):
     def update(self, dt: float):
         if not self.active:
             return
@@ -32,7 +32,7 @@ class Player(Sprite):
         super().update(dt)
 
 
-class BoidEnemy(Sprite):
+class BoidEnemy(Object):
     def __init__(self, filename, position, size, angle, target):
         super().__init__(filename, position, size, angle)
         self.rotationSpeed = 1
@@ -51,7 +51,7 @@ class BoidEnemy(Sprite):
         super().update(dt)
 
 
-class Projectile(Sprite):
+class Projectile(Object):
     def __init__(self, filename, position, size, angle, target):
         super().__init__(filename, position, size, angle)
         self.rotationSpeed = 1
