@@ -4,7 +4,7 @@ from object import Object
 
 earthMass = 5.97219 * 10 ** 24
 # earthMass = 5.97219 * 10 ** 14
-objectMass = 1.0
+objectMass = 2.0
 earthRadius = 6.374 * 10 ** 6
 objectRadius = 0.1
 TotalRadius = earthRadius + objectRadius
@@ -16,7 +16,7 @@ gravitationalConstant = 6.6743 * 10 ** -11
 # gravitationalConstant = 6.6743 * 10 ** -1
 
 
-def gravity(m1: float, m2: float, radius: float) -> float:
+def gravityForce(m1: float, m2: float, radius: float) -> float:
     g = ((m1 * m2) * gravitationalConstant) / (radius * radius)
     return g
 
@@ -31,6 +31,6 @@ def gravityObjects(o1: Object, o2: Object) -> float:
     return g
 
 
-Fg = gravity(earthMass, objectMass, TotalRadius)
+Fg = gravityForce(earthMass, objectMass, TotalRadius)
 g = acceleration(Fg, objectMass)
-print(g)
+print("Force: ", Fg, "Gravity: ", g)
