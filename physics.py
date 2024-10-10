@@ -11,6 +11,8 @@ TotalRadius = earthRadius + objectRadius
 TotalRadiusAskew = TotalRadius * TotalRadius
 otherMass = 1.0
 gravitationalConstant = 6.6743 * 10 ** -11
+
+
 # gravitationalConstant = 6.6743 * 10 ** -1
 
 
@@ -19,11 +21,16 @@ def gravity(m1: float, m2: float, radius: float) -> float:
     return g
 
 
+def acceleration(F: float, m: float):
+    return F / m
+
+
 def gravityObjects(o1: Object, o2: Object) -> float:
     radius = 10
     g = ((o1.m * o2.m) * 6.6743 * 10 ** -11) / (radius * radius)
     return g
 
 
-g = gravity(earthMass, objectMass, TotalRadius)
+Fg = gravity(earthMass, objectMass, TotalRadius)
+g = acceleration(Fg, objectMass)
 print(g)
