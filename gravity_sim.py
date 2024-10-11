@@ -34,7 +34,7 @@ class Player(Object):
 
 class BoidEnemy(Object):
     def __init__(self, filename, position, size, angle, target):
-        super().__init__(filename, position, size, angle)
+        super().__init__(filename, position, size, angle, 1000)
         self.rotationSpeed = 1
         self.target = target
 
@@ -53,7 +53,7 @@ class BoidEnemy(Object):
 
 class Projectile(Object):
     def __init__(self, filename, position, size, angle, target):
-        super().__init__(filename, position, size, angle)
+        super().__init__(filename, position, size, angle, 1000)
         self.rotationSpeed = 1
         self.target = target
 
@@ -99,8 +99,8 @@ clock = pygame.time.Clock()
 
 # Load image
 
-playerShip = Player('earth.png', (300, 300), (50, 50), 0)
-boidEnemy = BoidEnemy('moon.png', (300, 300), (50, 50), 180, playerShip)
+playerShip = Player('earth.png', (300, 300), (50, 50), 0, 1000)
+boidEnemy = BoidEnemy('earth.png', (300, 300), (50, 50), 180, playerShip)
 projectile = Projectile('moon.png', (300, 400), (25, 25), 90, playerShip)
 
 playerShip.active = True
