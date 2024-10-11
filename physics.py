@@ -4,7 +4,7 @@ from object import Object
 
 earthMass = 5.97219 * 10 ** 24
 # earthMass = 5.97219 * 10 ** 14
-objectMass = 2.0
+objectMass = 1.0
 earthRadius = 6.374 * 10 ** 6
 objectRadius = 0.1
 TotalRadius = earthRadius + objectRadius
