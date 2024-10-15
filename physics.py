@@ -2,10 +2,11 @@ import math
 
 from object import Object
 
-earthMass = 5.97219 * 10 ** 24
-# earthMass = 5.97219 * 10 ** 14
+earthMass = 5.97219 * 10 **  24
+moonMass = 5.97219 * 10 ** 14
 objectMass = 1.0
 earthRadius = 6.374 * 10 ** 6
+moonRadius = 1737.4
 objectRadius = 100000
 TotalRadius = earthRadius + objectRadius
 TotalRadiusAskew = TotalRadius * TotalRadius
