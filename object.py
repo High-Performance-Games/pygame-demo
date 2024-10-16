@@ -4,7 +4,7 @@ from pygame import Vector2
 
 class Object:
     def __init__(self, filename, position, size: tuple[float, float], angle: float, mass: float):
-        self.mass: float = 0.0
+        self.mass:float = mass
         self.angle: float = angle
         self.image = pygame.image.load(filename)
         self.imageScaled = pygame.transform.scale(self.image, size)

@@ -1,12 +1,16 @@
 import math
 
+from pygame import Vector2
+
 from object import Object
 
 earthMass = 5.97219 * 10 ** 24
-moonMass = 7.346 * 10 ** 22
+moonMass = 7.34767309 * 10 ** 22
+objectMass = 1.0
 earthRadius = 6.374 * 10 ** 6
-moonRadius = 1737.4
-TotalRadius = earthRadius + moonRadius
+moonRadius = 1.7374 * 10 ** 6
+objectRadius = 100000
+TotalRadius = earthRadius + objectRadius
 TotalRadiusAskew = TotalRadius * TotalRadius
 otherMass = 1.0
 gravitationalConstant = 6.6743 * 10 ** -11
@@ -26,21 +30,17 @@ def acceleration(F: float, m: float):
 
 
 def gravityForce(o1: Object, o2: Object) -> float:
-    radius = o1.position.distance_to(o2) * physicsScale
+    radius = o1.position.distance_to(o2.position) * physicsScale
     g = ((o1.mass * o2.mass) * 6.6743 * 10 ** -11) / (radius * radius)
     return g
 
 
-def gravityAcceleration(o1: Object, o2: Object) -> tuple[float, float]:
-    radius = o1.position.distance_to(o2) * physicsScale
-    Fg = gravityForce(o1.mass, o2.mass, radius)
-    a1 = Fg / o1.mass
-    a2 = Fg / o2.mass
+def gravityAcceleration(o1: Object, o2: Object) -> tuple[Vector2, Vector2]:
+    Fg = gravityForce(o1, o2)
+    displacement = (o2.position - o1.position).normalize()
+
+    a1 = displacement * (Fg / o1.mass)
+    a2 = -displacement * (Fg / o2.mass)
     return a1, a2
-
-    radius = o1.position.distance_to(o2) * physicsScale
-    g = ((o1.mass * o2.mass) * 6.6743 * 10 ** -11) / (radius * radius)
-    return g
-
 
 
