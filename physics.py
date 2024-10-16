@@ -3,12 +3,10 @@ import math
 from object import Object
 
 earthMass = 5.97219 * 10 ** 24
-moonMass = 5.97219 * 10 ** 14
-objectMass = 1.0
+moonMass = 7.346 * 10 ** 22
 earthRadius = 6.374 * 10 ** 6
 moonRadius = 1737.4
-objectRadius = 100000
-TotalRadius = earthRadius + objectRadius
+TotalRadius = earthRadius + moonRadius
 TotalRadiusAskew = TotalRadius * TotalRadius
 otherMass = 1.0
 gravitationalConstant = 6.6743 * 10 ** -11
@@ -45,6 +43,4 @@ def gravityAcceleration(o1: Object, o2: Object) -> tuple[float, float]:
     return g
 
 
-Fg = gravityForce(earthMass, objectMass, TotalRadius)
-g = acceleration(Fg, objectMass)
-print("Force: ", Fg, "Gravity: ", g)
+

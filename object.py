@@ -17,6 +17,7 @@ class Object:
     def update(self, dt: float):
         if not self.active:
             return
+        self.velocity += self.acceleration * dt
         self.position += self.velocity * dt
 
     def setRotation(self, newAngle):
