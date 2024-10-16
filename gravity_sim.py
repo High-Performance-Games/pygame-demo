@@ -29,9 +29,13 @@ clock = pygame.time.Clock()
 
 earth = Object('earth.png', (width/2, height/2), (100, 100), 0, earthMass)
 moon = Object('moon.png', (earth.position.x - 100, height/2), (25, 25), 90, moonMass)
+moon2 = Object('moon.png', (earth.position.x - 200, height/2), (25, 25), 90, moonMass)
 moon.velocity = Vector2(0, 200)
+moon2.velocity = Vector2(0, 130)
+
 earth.active = True
 moon.active = True
+moon2.active = True
 # Prepare loop condition
 running = True
 angle = 0
@@ -48,14 +52,22 @@ while running:
     a = gravityAcceleration(earth, moon)
     earth.acceleration = a[0]
     moon.acceleration = a[1]
+    a = gravityAcceleration(earth, moon2)
+    earth.acceleration += a[0]
+    moon2.acceleration = a[1]
+    a = gravityAcceleration(moon, moon2)
+    moon.acceleration += a[0]
+    moon2.acceleration += a[1]
     earth.update(dt)
     moon.update(dt)
+    moon2.update(dt)
     pygame.display.update()
 
     screen.fill((128, 128, 128))
 
     earth.draw(screen)
     moon.draw(screen)
+    moon2.draw(screen)
 
     # Part of event loop
     clock.tick(60)
