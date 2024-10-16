@@ -28,8 +28,8 @@ clock = pygame.time.Clock()
 # Load image
 
 earth = Object('earth.png', (width/2, height/2), (100, 100), 0, earthMass)
-moon = Object('moon.png', (550, 400), (25, 25), 90, moonMass)
-
+moon = Object('moon.png', (width/10, height/2), (25, 25), 90, moonMass)
+moon.velocity = Vector2(0, 100)
 earth.active = True
 moon.active = True
 # Prepare loop condition
