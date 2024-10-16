@@ -9,8 +9,8 @@ class Object:
         self.image = pygame.image.load(filename)
         self.imageScaled = pygame.transform.scale(self.image, size)
         self.imageRotated = pygame.transform.rotate(self.imageScaled, angle)
-        self.position = Vector2(position[0], position[1])
-        self.velocity = Vector2(0, 0)
+        self.position: Vector2 = Vector2(position[0], position[1])
+        self.velocity: Vector2 = Vector2(0, 0)
         self.active = False
 
     def update(self, dt: float):
