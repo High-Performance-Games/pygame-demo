@@ -11,12 +11,13 @@ class Object:
         self.imageRotated = pygame.transform.rotate(self.imageScaled, angle)
         self.position: Vector2 = Vector2(position[0], position[1])
         self.velocity: Vector2 = Vector2(0, 0)
+        self.acceleration: Vector2 = Vector2(0, 0)
         self.active = False
 
     def update(self, dt: float):
         if not self.active:
             return
-        self.position += self.velocity * dt;
+        self.position += self.velocity * dt
 
     def setRotation(self, newAngle):
         self.angle = newAngle
