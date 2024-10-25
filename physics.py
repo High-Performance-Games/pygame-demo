@@ -12,7 +12,7 @@ earthRadius = 6.374 * 10 ** 6
 moonRadius = 1.7374 * 10 ** 6
 sunToEarth = 1.5 * 10 ** 11
 moonToEarth = 3.85 * 10 ** 8
-otherMass = 1.0
+earthVelocity = 29784.8
 gravitationalConstant = 6.6743 * 10 ** -11
 
 
