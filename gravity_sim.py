@@ -28,10 +28,10 @@ clock = pygame.time.Clock()
 # Load image
 
 sun = Object('Orange_sun_01.png', (width/2, height/2), (100, 100), 0, sunMass)
-moon = Object('moon.png', (sun.position.x - 290, height/2), (15, 15), 90, moonMass)
+moon = Object('moon.png', (sun.position.x - 305, height/2), (15, 15), 90, moonMass)
 earth = Object('earth.png', (sun.position.x - 300, height/2), (35, 35), 90, earthMass)
-moon.velocity = Vector2(0, 200)
-earth.velocity = Vector2(0, 130)
+moon.velocity = Vector2(0, 210)
+earth.velocity = Vector2(0, 200)
 
 earth.active = True
 moon.active = True
@@ -49,9 +49,9 @@ while running:
     frameTime = gameClock.tick(60.0)  # attempts to normalize the time between game loops
     dt = frameTime / 1000.0  # divide by ~1000
 
-    a = gravityAcceleration(earth, moon)
-    a = gravityAcceleration(sun, earth)
-    a = gravityAcceleration(sun, moon)
+    gravityAcceleration(earth, moon)
+    gravityAcceleration(sun, earth)
+    gravityAcceleration(sun, moon)
     earth.update(dt)
     moon.update(dt)
     sun.update(dt)
