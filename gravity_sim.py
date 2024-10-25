@@ -5,7 +5,7 @@ import math
 from pygame import Vector2
 
 from object import Object
-from physics import sunMass, earthMass, moonMass, gravityAcceleration
+from physics import sunMass, earthMass, moonMass, gravityAcceleration, sunToEarth, moonToEarth
 
 playerSpeed = 15
 
@@ -27,11 +27,11 @@ clock = pygame.time.Clock()
 
 # Load image
 
-sun = Object('Orange_sun_01.png', (width/2, height/2), (100, 100), 0, sunMass)
-moon = Object('moon.png', (sun.position.x - 305, height/2), (15, 15), 90, moonMass)
-earth = Object('earth.png', (sun.position.x - 300, height/2), (35, 35), 90, earthMass)
+sun = Object('Orange_sun_01.png', (0, 0), (100, 100), 0, sunMass)
+moon = Object('moon.png', (sunToEarth + moonToEarth, 0), (15, 15), 90, moonMass)
+earth = Object('earth.png', (sunToEarth, 0), (35, 35), 90, earthMass)
 moon.velocity = Vector2(0, 210)
-earth.velocity = Vector2(0, 200)
+earth.velocity = Vector2(0, 2000000)
 
 earth.active = True
 moon.active = True

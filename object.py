@@ -1,10 +1,13 @@
 import pygame
 from pygame import Vector2
 
+physicsScale = 10 ** 9
+size = width, height = 1600, 1000
+
 
 class Object:
     def __init__(self, filename, position, size: tuple[float, float], angle: float, mass: float):
-        self.mass:float = mass
+        self.mass: float = mass
         self.angle: float = angle
         self.image = pygame.image.load(filename)
         self.size = Vector2(size[0], size[1])
@@ -20,7 +23,8 @@ class Object:
             return
         self.velocity += self.acceleration * dt
         self.position += self.velocity * dt
-        self.acceleration = Vector2(0,0)
+        self.acceleration = Vector2(0, 0)
+
     def setRotation(self, newAngle):
         self.angle = newAngle
         self.imageRotated = pygame.transform.rotate(self.imageScaled, self.angle)
@@ -28,4 +32,4 @@ class Object:
     def draw(self, screen):
         if not self.active:
             return
-        screen.blit(self.imageRotated, self.position - self.size * 0.5)
+        screen.blit(self.imageRotated, self.position/physicsScale - self.size * 0.5 + Vector2(width/2, height/2))

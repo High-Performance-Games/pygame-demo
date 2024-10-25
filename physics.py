@@ -10,10 +10,10 @@ objectMass = 1.0
 sunRadius = 6.957 * 10 ** 8
 earthRadius = 6.374 * 10 ** 6
 moonRadius = 1.7374 * 10 ** 6
-
+sunToEarth = 1.5 * 10 ** 11
+moonToEarth = 3.85 * 10 ** 8
 otherMass = 1.0
 gravitationalConstant = 6.6743 * 10 ** -11
-physicsScale = 10 ** 6.5
 
 
 # gravitationalConstant = 6.6743 * 10 ** -1
@@ -29,7 +29,7 @@ def acceleration(F: float, m: float):
 
 
 def gravityForce(o1: Object, o2: Object) -> float:
-    radius = o1.position.distance_to(o2.position) * physicsScale
+    radius = o1.position.distance_to(o2.position)
     g = ((o1.mass * o2.mass) * 6.6743 * 10 ** -11) / (radius * radius)
     return g
 
