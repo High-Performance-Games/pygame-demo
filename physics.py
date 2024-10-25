@@ -3,10 +3,11 @@ import math
 from pygame import Vector2
 
 from object import Object
-
+sunMass = 1.9885 * 10 ** 30
 earthMass = 5.97219 * 10 ** 24
 moonMass = 7.34767309 * 10 ** 22
 objectMass = 1.0
+sunRadius = 6.957 * 10 ** 8
 earthRadius = 6.374 * 10 ** 6
 moonRadius = 1.7374 * 10 ** 6
 objectRadius = 100000
