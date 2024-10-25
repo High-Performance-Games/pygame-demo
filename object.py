@@ -20,7 +20,7 @@ class Object:
             return
         self.velocity += self.acceleration * dt
         self.position += self.velocity * dt
-
+        self.acceleration = Vector2(0,0)
     def setRotation(self, newAngle):
         self.angle = newAngle
         self.imageRotated = pygame.transform.rotate(self.imageScaled, self.angle)

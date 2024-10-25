@@ -40,6 +40,8 @@ def gravityAcceleration(o1: Object, o2: Object) -> tuple[Vector2, Vector2]:
 
     a1 = displacement * (Fg / o1.mass)
     a2 = -displacement * (Fg / o2.mass)
+    o1.acceleration += a1
+    o2.acceleration += a2
     return a1, a2
 
 
