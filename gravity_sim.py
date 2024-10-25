@@ -28,7 +28,7 @@ clock = pygame.time.Clock()
 
 # Load image
 
-sun = Object('earth.png', (width/2, height/2), (100, 100), 0, sunMass)
+sun = Object('Orange_sun_01.png', (width/2, height/2), (100, 100), 0, sunMass)
 moon = Object('moon.png', (sun.position.x - 100, height/2), (25, 25), 90, moonMass)
 earth = Object('earth.png', (sun.position.x - 200, height/2), (25, 25), 90, earthMass)
 moon.velocity = Vector2(0, 200)
