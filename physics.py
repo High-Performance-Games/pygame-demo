@@ -10,12 +10,10 @@ objectMass = 1.0
 sunRadius = 6.957 * 10 ** 8
 earthRadius = 6.374 * 10 ** 6
 moonRadius = 1.7374 * 10 ** 6
-objectRadius = 100000
-TotalRadius = earthRadius + objectRadius
-TotalRadiusAskew = TotalRadius * TotalRadius
+
 otherMass = 1.0
 gravitationalConstant = 6.6743 * 10 ** -11
-physicsScale = 10 ** 4
+physicsScale = 10 ** 6.5
 
 
 # gravitationalConstant = 6.6743 * 10 ** -1
