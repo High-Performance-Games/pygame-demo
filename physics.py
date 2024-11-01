@@ -20,8 +20,8 @@ gravitationalConstant = 6.6743 * 10 ** -11
 
 
 def gravityForce(m1: float, m2: float, radius: float) -> float:
-    g = ((m1 * m2) * gravitationalConstant) / (radius * radius)
-    return g
+    Fg = ((m1 * m2) * gravitationalConstant) / (radius * radius)
+    return Fg
 
 
 def acceleration(F: float, m: float):
@@ -30,8 +30,11 @@ def acceleration(F: float, m: float):
 
 def gravityForce(o1: Object, o2: Object) -> float:
     radius = o1.position.distance_to(o2.position)
-    g = ((o1.mass * o2.mass) * 6.6743 * 10 ** -11) / (radius * radius)
-    return g
+    Fg = ((o1.mass * o2.mass) * 6.6743 * 10 ** -11) / (radius * radius)
+    displacement = (o2.position - o1.position).normalize()
+    o1.force += Fg * displacement
+    o2.force += Fg * -displacement
+    return Fg
 
 
 def gravityAcceleration(o1: Object, o2: Object) -> tuple[Vector2, Vector2]:
