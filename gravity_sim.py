@@ -10,8 +10,6 @@ from physics import sunMass, earthMass, moonMass, gravityAcceleration, sunToEart
 
 playerSpeed = 15
 
-
-
 # Initialise pygame
 pygame.init()
 pygame.mixer.init()
@@ -28,9 +26,9 @@ clock = pygame.time.Clock()
 
 # Load image
 
-sun = Object('Orange_sun_01.png', (0, 0), (sunRadius*20, sunRadius*20), 0, sunMass)
-moon = Object('moon.png', (sunToEarth - moonToEarth, 0), (moonRadius*500, moonRadius*500), 90, moonMass)
-earth = Object('earth.png', (sunToEarth, 0), (earthRadius*500, earthRadius*500), 90, earthMass)
+sun = Object('Orange_sun_01.png', (0, 0), (sunRadius * 20, sunRadius * 20), 0, sunMass)
+moon = Object('moon.png', (sunToEarth - moonToEarth, 0), (moonRadius * 500, moonRadius * 500), 90, moonMass)
+earth = Object('earth.png', (sunToEarth, 0), (earthRadius * 500, earthRadius * 500), 90, earthMass)
 moon.velocity = Vector2(0, earthVelocity + moonVelocity)
 earth.velocity = Vector2(0, earthVelocity)
 
@@ -50,7 +48,7 @@ while running:
         if event.type == pygame.QUIT:
             running = False
     frameTime = gameClock.tick(60.0)  # attempts to normalize the time between game loops
-    dt = frameTime  * 10 # divide by ~1000
+    dt = frameTime * 10  # divide by ~1000
     for i in range(100):
         gravityForce(moon, earth)
         gravityForce(sun, earth)
@@ -70,4 +68,4 @@ while running:
     # Part of event loop
     clock.tick(60)
     pygame.display.flip()
-    # Maxi was here
+    # Maxi the avali was here
