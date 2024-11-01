@@ -13,15 +13,11 @@ moonRadius = 1.7374 * 10 ** 6
 sunToEarth = 1.5 * 10 ** 11
 moonToEarth = 3.85 * 10 ** 8
 earthVelocity = 29784.8
+moonVelocity = 1022.8
 gravitationalConstant = 6.6743 * 10 ** -11
 
 
 # gravitationalConstant = 6.6743 * 10 ** -1
-
-
-def gravityForce(m1: float, m2: float, radius: float) -> float:
-    Fg = ((m1 * m2) * gravitationalConstant) / (radius * radius)
-    return Fg
 
 
 def acceleration(F: float, m: float):

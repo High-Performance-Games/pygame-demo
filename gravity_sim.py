@@ -6,7 +6,7 @@ from pygame import Vector2
 
 from object import Object
 from physics import sunMass, earthMass, moonMass, gravityAcceleration, sunToEarth, moonToEarth, earthVelocity, \
-    gravityForce, earthRadius, moonRadius, sunRadius
+    gravityForce, earthRadius, moonRadius, sunRadius, moonVelocity
 
 playerSpeed = 15
 
@@ -28,11 +28,11 @@ clock = pygame.time.Clock()
 
 # Load image
 
-sun = Object('Orange_sun_01.png', (0, 0), (sunRadius*2, sunRadius*2), 0, sunMass)
-moon = Object('moon.png', (sunToEarth - moonToEarth*10, 0), (moonRadius*1500, moonRadius*1500), 90, moonMass)
+sun = Object('Orange_sun_01.png', (0, 0), (sunRadius*20, sunRadius*20), 0, sunMass)
+moon = Object('moon.png', (sunToEarth - moonToEarth, 0), (moonRadius*500, moonRadius*500), 90, moonMass)
 earth = Object('earth.png', (sunToEarth, 0), (earthRadius*500, earthRadius*500), 90, earthMass)
-moon.velocity = Vector2(0, 0)#earthVelocity/10)
-earth.velocity = Vector2(0, 0)
+moon.velocity = Vector2(0, earthVelocity + moonVelocity)
+earth.velocity = Vector2(0, earthVelocity)
 
 earth.active = True
 moon.active = True
@@ -50,14 +50,14 @@ while running:
         if event.type == pygame.QUIT:
             running = False
     frameTime = gameClock.tick(60.0)  # attempts to normalize the time between game loops
-    dt = frameTime  * 100 # divide by ~1000
+    dt = frameTime  * 10 # divide by ~1000
     for i in range(100):
         gravityForce(moon, earth)
-        #gravityForce(sun, earth)
-        #gravityForce(sun, moon)
+        gravityForce(sun, earth)
+        gravityForce(sun, moon)
         earth.update(dt)
         moon.update(dt)
-        #sun.update(dt)
+        sun.update(dt)
 
     pygame.display.update()
 
