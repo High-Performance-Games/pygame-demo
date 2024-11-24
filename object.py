@@ -22,7 +22,7 @@ class Object:
     def update(self, dt: float):
         if not self.active:
             return
-        self.acceleration = self.force / self.mass
+        self.acceleration = self.force * (1.0 / self.mass)
         self.velocity += self.acceleration * dt
         self.position += self.velocity * dt
         self.force = Vector2(0, 0)

@@ -11,6 +11,7 @@ sunRadius = 6.957 * 10 ** 8
 earthRadius = 6.374 * 10 ** 6
 moonRadius = 1.7374 * 10 ** 6
 sunToEarth = 1.5 * 10 ** 11
+sunToVenus = 1.0 * 10 ** 11
 moonToEarth = 3.85 * 10 ** 8
 earthVelocity = 29784.8
 moonVelocity = 1022.8
